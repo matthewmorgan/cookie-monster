@@ -5,7 +5,9 @@ body {
 #wrapper {
   display: flex;
   flex-flow: column nowrap;
+  align-items: center;
 }
+
 .cookie-area {
   width: 600px;
   height: 200px;
@@ -13,6 +15,10 @@ body {
   border: 1px solid #ddd;
   font-size: 14px;
   margin: 10px 0 10px 0;
+}
+
+.cookie-image img{
+  width:200px;
 }
 
 label {
