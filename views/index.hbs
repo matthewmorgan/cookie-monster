@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html>
+<title>Cookie Mapper</title>
+
+<head></head>
+<body>
+<div id="wrapper">
+    <h1>Me want cookie!</h1>
+    <label for="input-cookie">Paste your Firefly cookies here</label>
+    <textarea class="cookie-area" id="input-cookie"></textarea>
+    <div class="flex-row">
+        <button class="do-map-cookie" onclick="mapCookie('127.0.0.1')">Map Cookies from Firefly to 127.0.0.1</button>
+        <button class="do-map-cookie" onclick="mapCookie('localhost')">Map Cookies from Firefly to localhost</button>
+    </div>
+    <label for="output-cookie">See your local cookies here</label>
+    <textarea class="cookie-area" id="output-cookie" onclick="this.focus();this.select()"></textarea>
+    <div>Visited {{visits}} times.</div>
+</div>
+
+</body>
+<link rel="stylesheet" href="css/style.css" media="all" type="text/css"/>
+<script src="js/main.js"></script>
+</html>
