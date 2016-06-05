@@ -15,6 +15,6 @@ function mapCookie(targetUrl) {
 
 function hasTheProperties(cookie) {
     return cookie.hasOwnProperty('domain') &&
-        cookie.hasOwnProperty('name') &&
-        (cookie['name'].startsWith('Access'));
+           cookie.hasOwnProperty('name') &&
+           cookie['name'].startsWith('Access');
 }
