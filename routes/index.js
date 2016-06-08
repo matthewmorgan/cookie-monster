@@ -6,8 +6,20 @@ const rethink = require('rethinkdb');
 router.get('/', (req, res, next) => {
   getCurrentVisitCounter(function (counter) {
     res.render('index', {'visits': counter.count});
-    updateVisitCounter(counter);
-  });
+  })
+});
+
+
+router.post('/update', (req, res, next) => {
+  const cookieCount = req.body['cookie_count'];
+  getCurrentVisitCounter(function(counter){
+    updateVisitCounter(counter, cookieCount, (err, result) => {
+      if (err) throw err;
+      res.send(200);
+    })
+  })
+});
+
 
 module.exports = router;
 
@@ -24,17 +36,17 @@ function getCurrentVisitCounter(callback) {
         rethink.table('visits')
             .get(1)
             .run(conn, (err, result) => {
-              if (err) throw err;
-              callback(result);
-            }
-        )
+                  if (err) throw err;
+                  callback(result);
+                }
+            )
       })
       .error(err => {
         throw err
       });
 }
 
-function updateVisitCounter(counter) {
+function updateVisitCounter(counter, cookieCount, callback) {
   let connectToDb = rethink.connect(
       {
         host: 'dokku-rethinkdb-monster',
@@ -42,16 +54,20 @@ function updateVisitCounter(counter) {
       }
   );
 
-  counter.count++;
+  console.log('Preparing to update visit counter by ', cookieCount);
+  counter.count += cookieCount;
 
   connectToDb
       .then(conn => {
         rethink.table('visits')
             .update(counter)
             .run(conn, (err, result) => {
-              if (err) throw err;
-            }
-        )
+                  if (err) throw err;
+                  if (callback && typeof callback === 'function') {
+                    callback();
+                  }
+                }
+            )
       })
       .error(err => {
         throw err

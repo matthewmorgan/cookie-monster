@@ -1,20 +1,24 @@
 function mapCookie(targetUrl) {
-    var oldCookies = JSON.parse(inputText = document.getElementById('input-cookie').value);
+  var oldCookies = JSON.parse(inputText = document.getElementById('input-cookie').value);
 
-    var newCookies = oldCookies
-        .filter(function (cookie) {
-            return hasTheProperties(cookie)
-        })
-        .map(function (cookie) {
-            cookie['domain'] = targetUrl;
-            return cookie;
-        });
+  var newCookies = oldCookies
+      .filter(function (cookie) {
+        return hasTheProperties(cookie)
+      })
+      .map(function (cookie) {
+        cookie['domain'] = targetUrl;
+        return cookie;
+      });
 
-    document.getElementById('output-cookie').innerHTML = JSON.stringify(newCookies);
+  document.getElementById('output-cookie').innerHTML = JSON.stringify(newCookies);
+  var httpRequest = new XMLHttpRequest();
+  httpRequest.open('POST', 'http://cookie-mapper.apps.dulcetsoftware.com/update');
+  httpRequest.setRequestHeader('Content-Type', 'application/json');
+  httpRequest.send('cookie_count=' + encodeURIComponent(newCookies.length.toString()));
 }
 
 function hasTheProperties(cookie) {
-    return cookie.hasOwnProperty('domain') &&
-           cookie.hasOwnProperty('name') &&
-           cookie['name'].startsWith('Access');
+  return cookie.hasOwnProperty('domain') &&
+      cookie.hasOwnProperty('name') &&
+      cookie['name'].startsWith('Access');
 }
