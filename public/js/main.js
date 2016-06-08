@@ -15,10 +15,18 @@ function mapCookie(targetUrl) {
   httpRequest.open('POST', 'http://cookie-mapper.apps.dulcetsoftware.com/update');
   httpRequest.setRequestHeader('Content-Type', 'application/json');
   httpRequest.send('cookie_count=' + encodeURIComponent(newCookies.length.toString()));
+  updateCookieCountInView(newCookies.length);
 }
 
 function hasTheProperties(cookie) {
   return cookie.hasOwnProperty('domain') &&
       cookie.hasOwnProperty('name') &&
       cookie['name'].startsWith('Access');
+}
+
+function updateCookieCountInView(deltaCookies){
+  var cookieCountDisplay = document.getElementById('mapped-cookie-count');
+  var oldCookieTokens = cookieCountDisplay.innerHTML.split(' ');
+  oldCookieTokens[1] = Number(oldCookieTokens[1]) + deltaCookies;
+  cookieCountDisplay.innerHTML = oldCookieTokens.join(' ');
 }
