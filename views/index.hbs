@@ -18,14 +18,6 @@
     <textarea class="cookie-area" id="output-cookie" onclick="this.focus();this.select()"></textarea>
     <div id="mapped-cookie-count">Mapped {{visits}} cookies since last reboot.</div>
 </div>
-<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-<script>
-    var socket = io('http://cookie-mapper.apps.dulcetsoftware.com');
-    socket.on('news', function (data) {
-        console.log(data);
-//        socket.emit('my other event', { my: 'data' });
-    });
-</script>
 </body>
 <link rel="stylesheet" href="css/style.css" media="all" type="text/css"/>
 <script src="js/main.js"></script>

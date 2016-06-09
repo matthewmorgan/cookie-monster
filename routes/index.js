@@ -4,8 +4,6 @@ const express = require('express');
 const router = express.Router();
 const rethink = require('rethinkdb');
 
-const io = global.io;
-
 router.get('/', (req, res, next) => {
   getCurrentVisitCounter(function (counter) {
     res.render('index', {'visits': counter.count});
@@ -17,9 +15,6 @@ router.post('/update', (req, res, next) => {
   const cookieCount = req.body['cookie_count'];
   getCurrentVisitCounter(function(counter){
     updateVisitCounter(counter, cookieCount, (err, result) => {
-      io.on('connection', socket => {
-        socket.emit('news', {cookieCount: counter.count});
-      });
       if (err) throw err;
       res.send(200);
     })
