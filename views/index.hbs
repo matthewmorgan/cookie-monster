@@ -5,14 +5,19 @@
 <head></head>
 <body>
 <div id="wrapper">
-    <div class="cookie-image"><img src="images/cookie-monster.png"/></div>
-    <h1>Me want cookie!</h1>
-    <h3>I will strip all but the 'Access' cookies, and re-map those to the selected host</h3>
+    <div id="title-wrapper">
+        <div class="cookie-image"><img src="images/cookie-monster.png"/></div>
+        <div id="right-title-wrapper">
+            <h1>Me want cookie!</h1>
+            <h4>I will strip all but the 'Access' cookies, and re-map those to the selected host</h4>
+        </div>
+    </div>
+
     <label for="input-cookie">Paste your Firefly cookies here</label>
     <textarea class="cookie-area" id="input-cookie"></textarea>
     <div class="flex-row">
-        <button class="do-map-cookie" onclick="mapCookie('127.0.0.1')">Map Cookies from Firefly to 127.0.0.1</button>
-        <button class="do-map-cookie" onclick="mapCookie('localhost')">Map Cookies from Firefly to localhost</button>
+        <button class="do-map-cookie button blue" onclick="mapCookie('127.0.0.1')">Map to 127.0.0.1</button>
+        <button class="do-map-cookie button blue" onclick="mapCookie('localhost')">Map to localhost</button>
     </div>
     <label for="output-cookie">See your local cookies here</label>
     <textarea class="cookie-area" id="output-cookie" onclick="this.focus();this.select()"></textarea>
@@ -34,5 +39,4 @@
     }
 </script>
 <script src="js/main.js"></script>
-
 </html>

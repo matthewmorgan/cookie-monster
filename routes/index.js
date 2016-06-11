@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const rethink = require('rethinkdb');
-const getCurrentVisitCounter = require('../dbHelpers');
+const getCurrentVisitCounter = require('../dbHelpers').getCurrentVisitCounter;
 
 router.get('/', (req, res, next) => {
   getCurrentVisitCounter(function (counter) {
