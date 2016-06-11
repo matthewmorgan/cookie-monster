@@ -9,7 +9,7 @@
 var app = require('../app');
 var debug = require('debug')('cookie-monster:server');
 var http = require('http');
-const rethink = require('rethinkdb');
+const getCurrentVisitCounter = require('../dbHelpers');
 
 /**
  * Get port from environment and store in Express.
@@ -101,32 +101,8 @@ io.on('connection', socket => {
   socket.on('cookies-parsed', () => {
     console.log('Cookies parsed...');
     getCurrentVisitCounter(result => {
-      console.log('new cookie count: ', result.count);
-      socket.emit('update-cookie-count', result.count);
+      io.emit('update-cookie-count', result.count);
     });
-
   })
 });
 
-function getCurrentVisitCounter(callback) {
-  let connectToDb = rethink.connect(
-      {
-        host: 'dokku-rethinkdb-monster',
-        port: 28015
-      }
-  );
-
-  connectToDb
-      .then(conn => {
-        rethink.table('visits')
-            .get(1)
-            .run(conn, (err, result) => {
-                  if (err) throw err;
-                  callback(result);
-                }
-            )
-      })
-      .error(err => {
-        throw err
-      });
-}

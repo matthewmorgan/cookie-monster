@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const rethink = require('rethinkdb');
+const getCurrentVisitCounter = require('../dbHelpers');
 
 router.get('/', (req, res, next) => {
   getCurrentVisitCounter(function (counter) {
@@ -24,28 +25,6 @@ router.post('/update', (req, res, next) => {
 
 module.exports = router;
 
-function getCurrentVisitCounter(callback) {
-  let connectToDb = rethink.connect(
-      {
-        host: 'dokku-rethinkdb-monster',
-        port: 28015
-      }
-  );
-
-  connectToDb
-      .then(conn => {
-        rethink.table('visits')
-            .get(1)
-            .run(conn, (err, result) => {
-                  if (err) throw err;
-                  callback(result);
-                }
-            )
-      })
-      .error(err => {
-        throw err
-      });
-}
 
 function updateVisitCounter(counter, cookieCount, callback) {
   let connectToDb = rethink.connect(
