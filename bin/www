@@ -4,10 +4,12 @@
  * Module dependencies.
  */
 
+'use strict';
+
 var app = require('../app');
 var debug = require('debug')('cookie-monster:server');
 var http = require('http');
-var index = require('../routes/index');
+const rethink = require('rethinkdb');
 
 /**
  * Get port from environment and store in Express.
@@ -60,8 +62,8 @@ function onError(error) {
   }
 
   var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+      ? 'Pipe ' + port
+      : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
@@ -85,18 +87,46 @@ function onError(error) {
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+      ? 'pipe ' + addr
+      : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
 
 io.on('connection', socket => {
   socket.emit('welcome', {
     message: 'successfully connected to server',
-    id: socket.id
+    id:      socket.id
   });
 
-  socket.on('cookie-update', clientMessage => {
-    console.log('Client sends: ',clientMessage);
+  socket.on('cookies-parsed', () => {
+    console.log('Cookies parsed...');
+    getCurrentVisitCounter(result => {
+      console.log('new cookie count: ', result.count);
+      socket.emit('update-cookie-count', result.count);
+    });
+
   })
 });
+
+function getCurrentVisitCounter(callback) {
+  let connectToDb = rethink.connect(
+      {
+        host: 'dokku-rethinkdb-monster',
+        port: 28015
+      }
+  );
+
+  connectToDb
+      .then(conn => {
+        rethink.table('visits')
+            .get(1)
+            .run(conn, (err, result) => {
+                  if (err) throw err;
+                  callback(result);
+                }
+            )
+      })
+      .error(err => {
+        throw err
+      });
+}

@@ -25,10 +25,12 @@
     var socket = io('http://cookie-mapper.apps.dulcetsoftware.com');
     socket.on('welcome', function (message) {
         console.log(message);
-        socket.emit('my other event', { my: 'data' });
     });
-    function sendToServer(messageFromClient){
-        socket.emit('cookie-update', messageFromClient);
+    socket.on('update-cookie-count', function(count){
+        updateCookieCountInView(count);
+    });
+    function sendToServer(){
+        socket.emit('cookies-parsed');
     }
 </script>
 <script src="js/main.js"></script>
