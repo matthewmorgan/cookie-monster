@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('cookie-monster:server');
 var http = require('http');
+var index = require('../routes/index');
 
 /**
  * Get port from environment and store in Express.
@@ -20,7 +21,7 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
-
+var io = require('socket.io')(server);
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -88,3 +89,14 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+io.on('connection', socket => {
+  socket.emit('welcome', {
+    message: 'successfully connected to server',
+    id: socket.id
+  });
+
+  socket.on('cookie-update', clientMessage => {
+    console.log('Client sends: ',clientMessage);
+  })
+});

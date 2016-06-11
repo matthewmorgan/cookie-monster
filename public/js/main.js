@@ -36,4 +36,5 @@ function updateCookieCountInView(deltaCookies) {
   var oldCookieTokens = cookieCountDisplay.innerHTML.split(' ');
   oldCookieTokens[1] = Number(oldCookieTokens[1]) + deltaCookies;
   cookieCountDisplay.innerHTML = oldCookieTokens.join(' ');
+  sendToServer(deltaCookies);
 }
