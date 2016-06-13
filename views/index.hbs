@@ -16,7 +16,7 @@
     </div>
 
     <label for="input-cookie">Paste your Firefly cookies here</label>
-    <textarea class="cookie-area" id="input-cookie"></textarea>
+    <textarea class="cookie-area" id="input-cookie" onclick="this.focus();this.select()"></textarea>
     <div class="flex-row">
         <button class="do-map-cookie button blue" onclick="mapCookie('127.0.0.1')">Map to 127.0.0.1</button>
         <button class="do-map-cookie button blue" onclick="mapCookie('localhost')">Map to localhost</button>
