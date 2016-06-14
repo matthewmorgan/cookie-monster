@@ -98,6 +98,10 @@ io.on('connection', socket => {
     id:      socket.id
   });
 
+  getCurrentVisitCounter(result => {
+    socket.emit('update-cookie-count', result.count);
+  });
+
   socket.on('cookies-parsed', () => {
     console.log('Cookies parsed...');
     getCurrentVisitCounter(result => {
