@@ -9,7 +9,7 @@
 var app = require('../app');
 var debug = require('debug')('cookie-monster:server');
 var http = require('http');
-const getCurrentVisitCounter = require('../dbHelpers').getCurrentVisitCounter;
+const getCurrentVisitCounter = require('../helpers/dbHelpers').getCurrentVisitCounter;
 
 /**
  * Get port from environment and store in Express.
