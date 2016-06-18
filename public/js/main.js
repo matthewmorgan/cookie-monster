@@ -1,3 +1,5 @@
+var socket = io('http://cookie-mapper.apps.dulcetsoftware.com');
+
 function mapCookie(targetUrl) {
   var oldCookies = JSON.parse(inputText = document.getElementById('input-cookie').value);
 
@@ -37,4 +39,16 @@ function updateCookieCountInView(newCookieCount) {
   var oldCookieTokens = cookieCountDisplay.innerHTML.split(' ');
   oldCookieTokens[1] = Number(newCookieCount);
   cookieCountDisplay.innerHTML = oldCookieTokens.join(' ');
+}
+
+socket.on('welcome', function (message) {
+  console.log(message);
+});
+
+socket.on('update-cookie-count', function(count){
+  updateCookieCountInView(count);
+});
+
+function sendToServer(){
+  socket.emit('cookies-parsed');
 }

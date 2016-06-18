@@ -28,17 +28,5 @@
 </body>
 <link rel="stylesheet" href="css/style.css" media="all" type="text/css"/>
 <script src="/socket.io/socket.io.js"></script>
-<script>
-    var socket = io('http://cookie-mapper.apps.dulcetsoftware.com');
-    socket.on('welcome', function (message) {
-        console.log(message);
-    });
-    socket.on('update-cookie-count', function(count){
-        updateCookieCountInView(count);
-    });
-    function sendToServer(){
-        socket.emit('cookies-parsed');
-    }
-</script>
 <script src="js/main.js"></script>
 </html>
