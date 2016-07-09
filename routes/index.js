@@ -10,9 +10,25 @@ router.get('/', (req, res, next) => {
   })
 });
 
+router.post('/account/:id', (req, res, next) => {
+  const id = req.params.id;
+  const body = req.body;
+
+
+  console.log('id', id);
+  console.log('body', body);
+
+  if (String(id) === body.id){
+    res.json(body);
+  } else {
+    res.json({'error': 'param id does not match body id'});
+  }
+
+});
+
 router.post('/update', (req, res, next) => {
   const cookieCount = req.body['cookie_count'];
-  getCurrentVisitCounter(function(counter){
+  getCurrentVisitCounter(function (counter) {
     updateCurrentVisitCounter(counter, cookieCount, (err, result) => {
       if (err) throw err;
       res.send(200);
