@@ -31,7 +31,7 @@ function mapCookie(targetUrl) {
 function hasTheProperties(cookie) {
   return cookie.hasOwnProperty('domain') &&
       cookie.hasOwnProperty('name') &&
-      cookie['name'].startsWith('Access');
+    (cookie['name'].startsWith('Access') || cookie['name'].startsWith('template_family'));
 }
 
 function updateCookieCountInView(newCookieCount) {
