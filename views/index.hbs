@@ -11,7 +11,7 @@
         <div class="cookie-image"><img src="images/cookie-monster.png"/></div>
         <div id="right-title-wrapper">
             <h1>Me want cookie!</h1>
-            <h4>I will strip all but the 'Access' and 'template_family' cookies, and re-map those to the selected host</h4>
+            <h4>I will strip all but the 'Access,' 'flags,' and 'template_family' cookies, and re-map those to the selected host</h4>
         </div>
     </div>
 
@@ -19,6 +19,8 @@
     <textarea class="cookie-area" id="input-cookie" onclick="this.focus();this.select()"></textarea>
     <div class="flex-row">
         <button class="do-map-cookie button blue" onclick="mapCookie('127.0.0.1')">Map to 127.0.0.1</button>
+        <input id="c20n-url" type="text" placeholder="c20n url here"/>
+        <button class="do-map-cookie button blue" onclick="mapCookie('c20n')">Map to c20n</button>
         <button class="do-map-cookie button blue" onclick="mapCookie('localhost')">Map to localhost</button>
     </div>
     <label for="output-cookie">See your local cookies here</label>
