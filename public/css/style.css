@@ -44,10 +44,13 @@ label {
   padding: 0 10px 0 10px;
 }
 
-.do-map-cookie {
+.do-map-cookie, .nice-smelling-incense {
   margin: 10px;
+  height: 40px;
+  min-width: 150px;
   width: 200px;
   border-radius: 4px;
+  font-size: 16px;
 }
 
 .flex-row {
@@ -58,10 +61,6 @@ label {
   background-color: #fff;
   color: #4B4F52;
   border: 1px solid #eaeaea;
-  font-size: 16px;
-  width: auto;
-  min-width: 150px;
-  height: 40px;
 }
 
 .button:hover {
